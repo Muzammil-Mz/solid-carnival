@@ -30,6 +30,15 @@ const userSchema = new Schema<Iuser>({
   employmentStatus: {
     type: String,
   },
+  userVerifyToken: {
+    email: String,
+  },
+  userVerified: {
+    email: {
+      type: Boolean,
+      default: false,
+    },
+  },
 });
 
 const userModel: Model<Iuser> = mongoose.model<Iuser>(
@@ -37,3 +46,5 @@ const userModel: Model<Iuser> = mongoose.model<Iuser>(
   userSchema,
   "Users"
 );
+
+export default userModel;
