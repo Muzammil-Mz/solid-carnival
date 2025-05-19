@@ -34,3 +34,21 @@ router.get(
     }
   }
 );
+
+router.put("/edit/:id", async (req: Request, res: Response): Promise<void> => {
+  try {
+    let parmas = req.params.id;
+    let { repo, description, visibility } = req.body;
+    const update = await repoModel.findByIdAndUpdate(
+      parmas,
+      { $set: { repo, description, visibility } },
+      { new: true }
+    );
+    res.status(StatusCodes.OK).json({ msg: "updated successfulyy" });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error });
+    }
+  }
+});
