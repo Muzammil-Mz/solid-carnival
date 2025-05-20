@@ -52,3 +52,20 @@ router.put("/edit/:id", async (req: Request, res: Response): Promise<void> => {
     }
   }
 });
+
+router.delete("/deleteone/:id",async(req:Request,res:Response):Promise<void>=>{
+  try {
+    let params=req.body.id
+    let find=await repoModel.findByIdAndDelete(params)
+    if(!find){
+      res.status(StatusCodes.BAD_REQUEST).json({msg:"none found"})
+
+    }
+    res.status(StatusCodes.OK)
+  } catch (error) {
+    if(error instanceof Error){
+      console.log(error.message);
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:error})
+    }
+  }
+})
